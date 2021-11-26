@@ -14,10 +14,10 @@ namespace Mini.Twitter.Repository {
         public UserRepository(MiniTwitterContext context) {
             this._twitterDbContext = context;
         }
-        public async Task AddUserAsync(User user) {
+        public async Task<bool> AddUserAsync(User user) {
             var result = _twitterDbContext.Users.FirstOrDefault(u => u.Username == user.Username);
             if (result!=null) {
-                return;
+                return false;
             }
             user.Followers = 0;
             user.Following = 0;
@@ -25,6 +25,7 @@ namespace Mini.Twitter.Repository {
             user.Password = GetSHA256(user.Password);
             await _twitterDbContext.Users.AddAsync(user);
             await _twitterDbContext.SaveChangesAsync();
+            return true;
         }
         public static string GetSHA256(string str) {
             SHA256 sha256 = SHA256Managed.Create();

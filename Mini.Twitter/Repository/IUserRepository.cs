@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mini.Twitter.Repository {
    public interface IUserRepository {
-        Task AddUserAsync(User user);
+        Task<bool> AddUserAsync(User user);
         Task<User> GetUserByIdAsync(int user);
     }
 }

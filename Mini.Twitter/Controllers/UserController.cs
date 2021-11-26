@@ -20,7 +20,10 @@ namespace Mini.Twitter.Controllers {
         [HttpPost]
         public async Task<ActionResult<UserDto>> Post([FromBody] User userForCreation) {
 
-            await _userRepository.AddUserAsync(userForCreation);
+            var result = await _userRepository.AddUserAsync(userForCreation);
+            if (!result) {
+                return null;
+            }
             return Ok(new UserDto {
                 IdUser = userForCreation.IdUser,
                 Username = userForCreation.Username
