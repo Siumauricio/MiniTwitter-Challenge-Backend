@@ -5,9 +5,11 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mini.Twitter.Repository {
     public class UserRepository : IUserRepository {
+
         private readonly MiniTwitterContext _twitterDbContext;
         public UserRepository(MiniTwitterContext context) {
             this._twitterDbContext = context;
@@ -32,6 +34,10 @@ namespace Mini.Twitter.Repository {
             stream = sha256.ComputeHash(encoding.GetBytes(str));
             for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
             return sb.ToString();
+        }
+
+        public async Task<User> GetUserByIdAsync(int id) {
+            return await _twitterDbContext.Users.FirstOrDefaultAsync(u => u.IdUser == id);
         }
     }
 }

@@ -27,5 +27,13 @@ namespace Mini.Twitter.Controllers {
             });
         }
 
+        [HttpGet]
+        public async Task<ActionResult<User>> Get([FromQuery] int id) {
+            var result = await _userRepository.GetUserByIdAsync(id);
+            if (result == null) {
+                return Ok();
+            }
+            return Ok(result);
+        }
     }
 }
