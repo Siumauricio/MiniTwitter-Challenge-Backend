@@ -27,6 +27,7 @@ namespace Mini.Twitter {
             services.AddDbContext<MiniTwitterContext>(options => options.UseNpgsql(Configuration.GetSection("DefaultConnection").Get<string>()));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITwittRepository, TwittRepository>();
+            services.AddScoped<ILikeRepository, LikeRepository>();
             services.AddControllers();
 
             services.AddSwaggerGen(c => {

@@ -20,5 +20,13 @@ namespace Mini.Twitter.Controllers {
             await _twittRepository.AddTweetAsync(twittForCreation);
             return Ok();
         }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Twitt>>> Get([FromQuery] int idUser) {
+            var result = await _twittRepository.GetTweetsByUserAsync(idUser);
+            if (result == null) {
+                return Ok();
+            }
+            return Ok(result);
+        }
     }
 }
