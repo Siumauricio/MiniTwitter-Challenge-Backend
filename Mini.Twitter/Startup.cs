@@ -24,12 +24,22 @@ namespace Mini.Twitter {
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services) {
+            services.AddCors(options => {
+                options.AddDefaultPolicy(builder => {
+                    builder.WithOrigins(Configuration.GetSection("Server-FrontEnd").Get<String>())
+                   .WithHeaders(Configuration.GetSection("Access-Control-Allow-Headers").Get<String[]>())
+                  .WithMethods(Configuration.GetSection("Access-Control-Allow-Methods").Get<String[]>());
+
+
+                });
+            });
             services.AddDbContext<MiniTwitterContext>(options => options.UseNpgsql(Configuration.GetSection("DefaultConnection").Get<string>()));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITwittRepository, TwittRepository>();
             services.AddScoped<ILikeRepository, LikeRepository>();
             services.AddScoped<IRetweetRepository, RetweetRepository>();
             services.AddControllers();
+            
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mini.Twitter", Version = "v1" });
@@ -47,7 +57,7 @@ namespace Mini.Twitter {
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {
