@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Mini.Twitter.ModelDto;
 using Mini.Twitter.Models;
 using Mini.Twitter.Repository;
 using System;
@@ -28,5 +29,12 @@ namespace Mini.Twitter.Controllers {
             }
             return Ok(result);
         }
+
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<IEnumerable<TweetDto>>> GetAll() {
+            var result = await _twittRepository.GetAllTweets();
+            return Ok(result);
+        }
+
     }
 }

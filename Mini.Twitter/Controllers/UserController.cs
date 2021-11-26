@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Mini.Twitter.ModelDto;
 using Mini.Twitter.Models;
 using Mini.Twitter.Repository;
@@ -31,12 +32,21 @@ namespace Mini.Twitter.Controllers {
         }
 
         [HttpGet]
+
         public async Task<ActionResult<User>> Get([FromQuery] int id) {
             var result = await _userRepository.GetUserByIdAsync(id);
             if (result == null) {
                 return Ok();
             }
-            return Ok(result);
+            return Ok(new User {
+                Username = result.Username,
+                IdUser=result.IdUser,
+                Followers =  result.Followers, 
+                Following=result.Following, 
+                Description=result.Description, 
+                JoinDate = result.JoinDate,
+                Email = result.Email,
+            });
         }
     }
 }

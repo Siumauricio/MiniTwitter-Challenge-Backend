@@ -14,13 +14,13 @@ namespace Mini.Twitter.Repository {
         public LoginRepository(MiniTwitterContext context) {
             this._twitterDbContext = context;
         }
-        public async Task<bool> Login(LoginModel loginModel) {
+        public async Task<User> Login(LoginModel loginModel) {
             string passEncrypted = GetSHA256(loginModel.password);
             var result = await _twitterDbContext.Users.FirstOrDefaultAsync(user => (user.Email == loginModel.Username || user.Username == loginModel.Username) && user.Password == passEncrypted);
             if (result != null) {
-                return true;
+                return result;
             }
-            return false;
+            return null;
         }
         public static string GetSHA256(string str) {
             SHA256 sha256 = SHA256Managed.Create();

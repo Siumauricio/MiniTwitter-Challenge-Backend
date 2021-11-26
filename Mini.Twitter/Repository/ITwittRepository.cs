@@ -9,5 +9,6 @@ namespace Mini.Twitter.Repository {
     public interface ITwittRepository {
         Task AddTweetAsync(Twitt twitt);
         Task<IReadOnlyList<Twitt>> GetTweetsByUserAsync(int idUser);
+        Task<IReadOnlyList<TweetDto>> GetAllTweets();
     }
 }

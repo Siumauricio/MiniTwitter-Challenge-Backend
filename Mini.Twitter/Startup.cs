@@ -32,10 +32,9 @@ namespace Mini.Twitter {
                     builder.WithOrigins(Configuration.GetSection("Server-FrontEnd").Get<String>())
                    .WithHeaders(Configuration.GetSection("Access-Control-Allow-Headers").Get<String[]>())
                   .WithMethods(Configuration.GetSection("Access-Control-Allow-Methods").Get<String[]>());
-
-
                 });
             });
+
             services.AddAuthentication(opt => {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;

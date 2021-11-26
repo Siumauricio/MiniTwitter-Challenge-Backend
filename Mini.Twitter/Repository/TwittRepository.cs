@@ -17,8 +17,17 @@ namespace Mini.Twitter.Repository {
             await _twitterDbContext.SaveChangesAsync();
         }
 
+        public async Task<IReadOnlyList<TweetDto>> GetAllTweets() {
+
+            var result = from a in _twitterDbContext.Twitts
+                         join s in _twitterDbContext.Users on a.IdUser equals s.IdUser
+                         select new TweetDto { IdUser= a.IdUser, Username=s.Username, twitt=a.twitt };
+            return await result.ToListAsync();
+        }
+
         public async Task<IReadOnlyList<Twitt>> GetTweetsByUserAsync(int idUser) {
            return  await _twitterDbContext.Twitts.Where(tweet => tweet.IdUser == idUser).ToListAsync();
         }
+
     }
 }

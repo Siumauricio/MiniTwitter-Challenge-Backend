@@ -28,7 +28,7 @@ namespace Mini.Twitter.Controllers {
                 return Ok(false);
             }
             var result = await _loginRepository.Login(user);
-            if (result) {
+            if (result!=null) {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey@123"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
@@ -41,7 +41,7 @@ namespace Mini.Twitter.Controllers {
                     signingCredentials: signinCredentials
                     );
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                return Ok(new { Token = tokenString });
+                return Ok(new { Token = tokenString,IdUser = result.IdUser });
          }
             return Unauthorized();
         }

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Mini.Twitter.ModelDto {
-    public class UserDto {
+    public class TweetDto {
         public int IdUser { get; set; }
         public string Username { get; set; }
+        public string twitt { get; set; }
 
     }
 }
