@@ -136,7 +136,7 @@ namespace Mini.Twitter.Models
 
                 entity.Property(e => e.IdUser).HasColumnName("id_user");
 
-                entity.Property(e => e.Twitt1)
+                entity.Property(e => e.twitt)
                     .IsRequired()
                     .HasMaxLength(280)
                     .HasColumnName("twitt");

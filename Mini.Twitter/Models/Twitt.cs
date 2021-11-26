@@ -15,7 +15,7 @@ namespace Mini.Twitter.Models
 
         public int IdTweet { get; set; }
         public int IdUser { get; set; }
-        public string Twitt1 { get; set; }
+        public string twitt { get; set; }
 
         public virtual User IdUserNavigation { get; set; }
         public virtual ICollection<Like> Likes { get; set; }
