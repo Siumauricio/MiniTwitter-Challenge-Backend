@@ -48,7 +48,7 @@ namespace Mini.Twitter {
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = "http://localhost:4200",
                         ValidAudience = "http://localhost:4200",
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecret@123"))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey@123"))
                     };
                 });
 
@@ -58,6 +58,7 @@ namespace Mini.Twitter {
             services.AddScoped<ITwittRepository, TwittRepository>();
             services.AddScoped<ILikeRepository, LikeRepository>();
             services.AddScoped<IRetweetRepository, RetweetRepository>();
+            services.AddScoped<ILoginRepository, LoginRepository>();
             services.AddControllers();
             
 

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Mini.Twitter.Models;
+using Mini.Twitter.Repository;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,25 +14,36 @@ using System.Threading.Tasks;
 namespace Mini.Twitter.Controllers {
     [Route("[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase {
+    public class AuthController : Controller {
+
+        private readonly ILoginRepository _loginRepository;
+
+        public AuthController(ILoginRepository loginRepository) {
+            this._loginRepository = loginRepository;
+        }
 
         [HttpPost]
-        public IActionResult Login([FromBody] LoginModel user) {
+        public async Task<IActionResult> Login([FromBody] LoginModel user) {
             if (user == null) {
                 return Ok(false);
             }
-            if (user.Username == "Hola" && user.password == "123") {
-                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecret@123"));
+            var result = await _loginRepository.Login(user);
+            if (result) {
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey@123"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
-                var tokenOptions = new JwtSecurityToken {
-                    Issuer:"http://localhost:4200",
-                    //Claims = new List<Claim>(),
-                    //SigningCredentials = signinCredentials,
-                    //issu
-                    //expires
-                }
-            }
+
+                var tokenOptions = new JwtSecurityToken(
+                    issuer: "http://localhost:4200",
+                    audience: "http://localhost:4200",
+                    claims: new List<Claim>(),
+                    expires: DateTime.Now.AddMinutes(30),
+                    signingCredentials: signinCredentials
+                    );
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+                return Ok(new { Token = tokenString });
+         }
+            return Unauthorized();
         }
     }
 }
