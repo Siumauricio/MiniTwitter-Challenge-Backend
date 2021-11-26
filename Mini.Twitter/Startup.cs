@@ -28,6 +28,7 @@ namespace Mini.Twitter {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITwittRepository, TwittRepository>();
             services.AddScoped<ILikeRepository, LikeRepository>();
+            services.AddScoped<IRetweetRepository, RetweetRepository>();
             services.AddControllers();
 
             services.AddSwaggerGen(c => {
