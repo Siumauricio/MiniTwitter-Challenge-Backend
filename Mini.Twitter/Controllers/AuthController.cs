@@ -33,6 +33,12 @@ namespace Mini.Twitter.Controllers {
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
 
+                //var claims = new List<Claim> {
+                //    new Claim(ClaimTypes.Name,user.Username),
+                //    new Claim(ClaimTypes.Role,"GetUser")
+                //};
+
+
                 var tokenOptions = new JwtSecurityToken(
                     issuer: "http://localhost:4200",
                     audience: "http://localhost:4200",

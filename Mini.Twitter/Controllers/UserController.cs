@@ -32,7 +32,7 @@ namespace Mini.Twitter.Controllers {
         }
 
         [HttpGet]
-
+        //[Authorize(Roles ="GetUser")]
         public async Task<ActionResult<User>> Get([FromQuery] int id) {
             var result = await _userRepository.GetUserByIdAsync(id);
             if (result == null) {

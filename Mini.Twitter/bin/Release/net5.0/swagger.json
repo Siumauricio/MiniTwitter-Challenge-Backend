@@ -1,0 +1,505 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Mini.Twitter",
+    "version": "v1"
+  },
+  "paths": {
+    "/Auth": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/LoginModel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Like": {
+      "post": {
+        "tags": [
+          "Like"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Like"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Like"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Like"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Twitt"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Retweet": {
+      "post": {
+        "tags": [
+          "Retweet"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Retweet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Retweet"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Retweet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Twitt"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Twitt": {
+      "post": {
+        "tags": [
+          "Twitt"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Twitt"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Twitt"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "idUser",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Twitt"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Twitt/GetAll": {
+      "get": {
+        "tags": [
+          "Twitt"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TweetDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/User": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UserDto"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "LoginModel": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Follower": {
+      "type": "object",
+      "properties": {
+        "idFollower": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "fromUser": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "toUser": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "toUserNavigation": {
+          "$ref": "#/definitions/User"
+        }
+      }
+    },
+    "Following": {
+      "type": "object",
+      "properties": {
+        "idFollowing": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "fromUser": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "toUser": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "fromUserNavigation": {
+          "$ref": "#/definitions/User"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "idUser": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        },
+        "followers": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "password": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "following": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "joinDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "followersNavigation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Follower"
+          }
+        },
+        "followings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Following"
+          }
+        },
+        "twitts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Twitt"
+          }
+        }
+      }
+    },
+    "Retweet": {
+      "type": "object",
+      "properties": {
+        "idRetweet": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "idTweetRetweet": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "idUser": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "idTweetRetweetNavigation": {
+          "$ref": "#/definitions/Twitt"
+        }
+      }
+    },
+    "Twitt": {
+      "type": "object",
+      "properties": {
+        "idTweet": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "idUser": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "twitt": {
+          "type": "string"
+        },
+        "creationDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "idUserNavigation": {
+          "$ref": "#/definitions/User"
+        },
+        "likes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Like"
+          }
+        },
+        "retweets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Retweet"
+          }
+        }
+      }
+    },
+    "Like": {
+      "type": "object",
+      "properties": {
+        "idLike": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "idTweetLike": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "idUser": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "idTweetLikeNavigation": {
+          "$ref": "#/definitions/Twitt"
+        }
+      }
+    },
+    "TweetDto": {
+      "type": "object",
+      "properties": {
+        "idUser": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        },
+        "twitt": {
+          "type": "string"
+        },
+        "creationDate": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "UserDto": {
+      "type": "object",
+      "properties": {
+        "idUser": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -13,6 +13,7 @@ namespace Mini.Twitter.Repository {
             this._twitterDbContext = context;
         }
         public async Task AddTweetAsync(Twitt twitt) {
+            twitt.CreationDate = DateTime.Now;
             await _twitterDbContext.Twitts.AddAsync(twitt);
             await _twitterDbContext.SaveChangesAsync();
         }
@@ -21,7 +22,7 @@ namespace Mini.Twitter.Repository {
 
             var result = from a in _twitterDbContext.Twitts
                          join s in _twitterDbContext.Users on a.IdUser equals s.IdUser
-                         select new TweetDto { IdUser= a.IdUser, Username=s.Username, twitt=a.twitt };
+                         select new TweetDto { IdUser= a.IdUser, Username=s.Username, twitt=a.twitt,CreationDate =a.CreationDate };
             return await result.ToListAsync();
         }
 

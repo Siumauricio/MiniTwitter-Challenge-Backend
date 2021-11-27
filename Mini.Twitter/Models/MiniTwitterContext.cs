@@ -140,6 +140,8 @@ namespace Mini.Twitter.Models
                     .IsRequired()
                     .HasMaxLength(280)
                     .HasColumnName("twitt");
+                entity.Property(e => e.CreationDate).HasColumnName("creationdate");
+
 
                 entity.HasOne(d => d.IdUserNavigation)
                     .WithMany(p => p.Twitts)

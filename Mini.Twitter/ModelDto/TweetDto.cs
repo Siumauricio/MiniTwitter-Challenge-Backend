@@ -8,6 +8,8 @@ namespace Mini.Twitter.ModelDto {
         public int IdUser { get; set; }
         public string Username { get; set; }
         public string twitt { get; set; }
+        public DateTime CreationDate { get; set; }
+
 
     }
 }
